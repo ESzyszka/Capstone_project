@@ -1,0 +1,389 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="https://distill.pub/template.v1.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+
+
+
+
+<script type="text/front-matter" >
+
+  title: "Sign Language Recognition"
+  description: "Thesis Project"
+  authors:
+  - Ewa Szyszka: http://colah.github.io
+  affiliations:
+  - Minerva Schools at KGI: http://g.co/brain
+
+</script>
+
+
+
+<!-- This is where the pretty alignment of picture and argument happens -->
+<head>
+<style>
+
+  .arguments-figure {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .arguments-figure > div {
+    max-width: 700px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .arguments-figure > div:last-child {
+    margin-bottom: 0px;
+  }
+  .arguments-figure div img {
+    flex-basis: 120px;
+    max-width: 120px;
+    border-radius: 8px;
+    margin-right: 30px;
+    flex-shrink: 4;
+  }
+  .arguments-figure div div {
+    flex-basis: 550px;
+    flex-shrink: 1;
+  }
+  .arguments-figure div h4 {
+    margin-top: -4px;
+    margin-bottom: 8px;
+  }
+  .center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  .im_top{
+        position: relative;
+        top: 0;
+        left: 0;
+  }
+  .im_bottom{
+        position: absolute;
+        top: 0;
+        left: 0px;
+  }
+  .button_locator{
+        position: relative;
+        left: -210px;
+        top: 0;
+  }
+  .vertical-center{
+  margin: 0;
+  position: absolute;
+  top: 22%;
+  left: 34%;
+
+  }
+  .custom-button{
+  padding: 10xp;
+  color: white;
+  background-color: #009578;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+  .custom-button:hover{
+  background-color: #00b28f;
+  }
+  .custom-text{
+    margin-left 10px;
+
+  }
+
+
+</style>
+
+
+
+<!-- This is the stylish button magic: -->
+   <style id="svelte-1v7bmjo-style">#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:text}#math-wrapper.svelte-1v7bmjo.svelte-1v7bmjo{text-align:center}.highlightVariable.svelte-1v7bmjo>path.svelte-1v7bmjo{fill:var(--green)}.highlightNotation.svelte-1v7bmjo>path.svelte-1v7bmjo{fill:var(--blue)}.hidden.svelte-1v7bmjo.svelte-1v7bmjo{display:none}#button-wrapper.svelte-1v7bmjo.svelte-1v7bmjo{text-align:center;margin-top:10px}button.svelte-1v7bmjo.svelte-1v7bmjo{border:none;padding:0.75em 1.5em;text-align:center;text-decoration:none;font-size:1em;border:1px solid;margin-left:5px;margin-right:5px;border-radius:var(--border-radius);background-color:var(--gray-bg)}#notation-button.svelte-1v7bmjo.svelte-1v7bmjo{border-color:var(--blue);color:var(--blue)}#variable-button.svelte-1v7bmjo.svelte-1v7bmjo{border-color:var(--green);color:var(--green)}button.svelte-1v7bmjo.svelte-1v7bmjo:hover{cursor:pointer}@media(max-width: 768px){#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:screen !important}button.svelte-1v7bmjo.svelte-1v7bmjo{margin-top:0.5rem;margin-bottom:0.5rem;font-size:0.9em}}@media(max-width: 1000px){#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:page}}</style>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+ </head>
+
+<dt-article>
+  <h1>Sign Language Recognition</h1>
+  <h2>The project focuses on implementing a PJM recognition tool.</h2>
+
+  <dt-byline style="margin-bottom: 0px"></dt-byline>
+
+
+  <div id="button-wrapper" class="byline" >
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button" href="https://github.com/ntkme/github-buttons/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large"  aria-label="Fork ntkme/github-buttons on GitHub">Fork</a>
+    <a class="github-button" href="https://www.overleaf.com/read/tvrgdjxgcfjw" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-template" data-size="large" aria-label="Fork ntkme/github-buttons on GitHub">Paper</a>
+  </div>
+
+
+
+
+
+  <h2>Project motivation</h2>
+  <figure class="arguments-figure">
+
+  <div>
+            <img src="https://images.unsplash.com/photo-1584558611757-1ba590b2101e?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 1: Diversity protection</h4>
+            <p>Around the world there are over 135 sign languages spoken. </p>
+            </div>
+  </div>
+  <div>
+            <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 2: Personal </h4>
+            <p>Explore previously unknown linguistic territory and unknown part of my own cultural heritage,</p>
+            </div>
+  </div>
+  <div>
+            <img src="https://images.unsplash.com/photo-1525340941843-5ab5dd974e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 3: Academic </h4>
+            <p>Establish a solid theoretical basis for polish sign language recognition</p>
+            </div>
+  </div>
+
+</figure>
+
+
+  <h2>Background 🚧🏗️👷</h2>
+
+  <p>In this paragraph I will look at mathematical and machine learning background of the project.
+    All concepts necessary to understand the thesis project will be outlined. Under construction.  </p>
+
+
+
+
+
+<div style="position: relative; left: 0; top: 0;">
+<!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+  <img id="math_1" src="/Users/ewa_anna_szyszka/Desktop/blog/aa.png" alt="Trulli" width="400" height="90" class="im_bottom">
+  <img id="math_2" src="/Users/ewa_anna_szyszka/Desktop/blog/bb.png" alt="Trulli" width="400" height="90" class="im_top">
+</div>
+
+
+
+
+<!-- This is the JavaScript for changing the opacity -->
+<script>
+function opacityDimmer() {
+  document.getElementById("math_2").style.opacity = 0.0;
+}
+
+function opacityBringer(){
+  document.getElementById("math_2").style.opacity = 1.0;
+}
+</script>
+
+
+<div id="button-wrapper"  class="svelte-1v7bmjo button_locator">
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityDimmer()" id="notation-button" class="svelte-1v7bmjo">-</button>
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityBringer()" id="variable-button" class="svelte-1v7bmjo">+</button>
+</div>
+
+
+
+<h2>Methodology</h2>
+
+<p>The project is divided into four main stages. You can click on each if you want to go directly to the section and learn what it entails. However, it is recommended to look at the project in chronological order.  </p>
+
+
+
+    <p>
+          <a href="#Link1">1. Data collection and generation</a> <br>
+          <a href="#Link2">2. Building of the detection software (sign2text)</a> <br>
+          <a href="#Link3">3. Building generation softwrae (text2sign)</a><br>
+          <a href="#Link4">4. Evaluation and discussion</a>.
+        </p>
+
+<br>
+
+<h4 id="Link1">Data collection and generation</h4>
+
+<div>
+In order to address the lack of presence of datasets for Polish Sign Language I had to capture data and merge multiple datasets to create a representative
+set on which I could later on train my models. I write a script which allowed me to capture key frames of sign language alphabet characters which you can see
+annotated below: </div>
+
+
+
+</div>>
+<dt-code block language="python">
+  #______ IMPORTS ________
+  import cv2
+  from pathlib import Path
+  import os.path
+  from os import path
+
+  #______ OPEN A VIDEO FRAME ________
+  cam = cv2.VideoCapture(0)
+  cv2.namedWindow("test")
+
+  img_counter = 0
+
+  #________ CONTINUE DISPLAYING FRAME UNTIL DISRUPTED ________
+  while True:
+      ret, frame = cam.read()
+
+      #________ RECTANGLE REGION FOR DETECTION ________
+      start_point, end_point,color,thickness = (5, 5),(220, 220),(255, 0, 0), 2
+      cv2.rectangle(frame, (100,100),(600,600),(255,0,0), 2)
+      cv2.imshow("test", frame)
+
+      if not ret:
+          break
+      k = cv2.waitKey(1)
+
+      # ________ WHEN ESC PRESSED: IMAGE IS SAVED TO THE FOLDER ________
+      if k%256 == 27:
+          break
+
+      # ________ WHEN SPACE PRESSED: IMAGE IS SAVED TO THE FOLDER ________
+      elif k%256 == 32:
+          img_box = "/Users/ewa_anna_szyszka/Desktop/Code/ImageRecognition/datacapturebox/A/opencv_box__{}.png".format(img_counter)
+          r = (102, 102, 499, 499)
+          imCrop = frame[int(r[1]):int(r[1]+r[3]), int(r[0]):int(r[0]+r[2])]
+          cv2.imwrite(img_box, imCrop)
+          img_counter += 1
+
+  cam.release()
+
+  cv2.destroyAllWindows()
+</dt-code>
+
+
+<br>
+<div>To give you a better idea of how the captured images looked like I have included the following photos:</div>
+
+<!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+<p>
+<image width="150" height="150"  src="/Users/ewa_anna_szyszka/Desktop/blog/capture.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="/Users/ewa_anna_szyszka/Desktop/blog/capture2.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="/Users/ewa_anna_szyszka/Desktop/blog/capture3.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="/Users/ewa_anna_szyszka/Desktop/blog/capture4.png" x="620" y="0" opacity="0"></image>
+</p>
+
+<br>
+<p>
+Next, after I collected the data for signs that are specific to polish sign language I needed to augment my dataset.
+Or in simpler terms, create more images to make my model muuuuch better. For this purpose I used DCGANs and generated some fake images.
+This is how they looked:
+<!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+<image width="600" height="300" src="/Users/ewa_anna_szyszka/Desktop/blog/img1.png" x="620" y="0" opacity="0"></image>
+</p>
+
+
+
+
+<br>
+<!--
+
+  <figure class="l-body">
+                      <div id="figure7_div">
+                        <svg width="100%" height="100%" viewBox="0 0 1020 470" style="min-width: 510px;">
+                          <g id="image_group" width="960" height="300" transform="translate(30, 30)">
+
+                            <text id="display_image_title" x="150" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: X</text>
+                            <text id="ig_weights_title" x="480" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: Y</text>
+                            <text id="eg_weights_title" x="810" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: Z</text>
+
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img1.png" id="display_image" x="0" y="0"></image>
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img2.png" id="ig_weights" x="330" y="0"></image>
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img3.png" id="eg_weights" x="660" y="0"></image>
+                          </g>
+                        </svg>
+                      </div>
+                       <script src="figure7.js"></script>
+
+                  </figure> -->
+
+
+
+
+
+<h4 id="Link2">Building of the detection software</h4>
+
+<div>🚧🏗️👷 Here I need to add description 🚧🏗️👷</div>
+<p>
+  <!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+<image width="1100" height="300" src="/Users/ewa_anna_szyszka/Desktop/blog/methodology.png" x="620" y="0" opacity="0"></image>
+</p>
+
+<div>Next I have created a skin color detector and hand movement tracker</div>
+<div>🚧🏗️👷 Add code in the future 🚧🏗️👷</div>
+<p>
+<image width="450" height="350"  src="/Users/ewa_anna_szyszka/Desktop/blog/track.png" x="620" y="0" opacity="0"></image>
+</p>
+
+<div>🚧🏗️👷 Add a video on which you can see better the skin color detection and hand tracking 🚧🏗️👷</div>
+<div style="position: relative; left: 0; top: 0;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EoMs8AXZMWM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+
+
+<h4 id="Link3">Building generation softwrae (text2sign)</h4>
+
+<div>🚧🏗️👷 better prototype similar to this photo 🚧🏗️👷</div>
+
+<p>
+<image width="230" height="350"  src="/Users/ewa_anna_szyszka/Desktop/blog/sign2text.png" x="620" y="0" opacity="0"></image>
+</p>
+
+<h4 id="Link4">Evaluation and discussion</h4>
+
+<div>🚧🏗️👷 Here descriptive stats of the dataset 🚧🏗️👷</div>
+
+<p>
+<input type="file" id="real-file"/>
+<!--<button type="button" id="custom-button">CHOOSE FILE </button>
+<span id="custom-text">No file chosen</span> -->
+</p>
+
+
+<script type="text/javascript">
+  const realFileBtn = document.getElementById("real-file");
+  const customBtn = document.getElementById("custom-button");
+  const customTxt = document.getElementById("custom-text");
+
+</script>
+
+
+
+
+
+  <p>We can also cite <dt-cite key="gregor2015draw"></dt-cite> external publications.</p>
+<div id="observablehq-717ef042"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks.js?v=3";
+const inspect = Inspector.into("#observablehq-717ef042");
+(new Runtime).module(define, name => name === "graphic" ? inspect() : undefined);
+</script>
+</dt-article>
+
+
+<dt-appendix>
+</dt-appendix>
+
+<script type="text/bibliography">
+  @article{gregor2015draw,
+    title={DRAW: A recurrent neural network for image generation},
+    author={Gregor, Karol and Danihelka, Ivo and Graves, Alex and Rezende, Danilo Jimenez and Wierstra, Daan},
+    journal={arXivreprint arXiv:1502.04623},
+    year={2015},
+    url={https://arxiv.org/pdf/1502.04623.pdf}
+  }
+</script>
