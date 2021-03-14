@@ -14,7 +14,7 @@ List of files in the Capstone_project repository
    (a) FingerDetection.py <br/>
    (b) my_mode.h5 <br/>
 5. experiment_HV.py
-6. sd
+6. key_frames.py
 7. sd
 8. sd
 
