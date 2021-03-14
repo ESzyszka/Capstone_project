@@ -56,6 +56,18 @@ Furthermore, a pdf including detailed information about training can be found in
 
 ### 4. Finger Detection and Tracking 
 
+FingerDetection.py is the main detection program implemented in python.
+It has the following functionalities:
+
+(a) skin color detection
+(b) convex hull and centre point of the hand
+(c) Type of hand movement clasifier [eg. 'Middle_vertical_movement','Middle_horizontal_movement' ]
+(d) Press a key trigger to run the CNN classification
+
+The other file my_mode.h5 in the folder is an exported sample trained on a smaller subset of data. Here you can see the overview table of the training for the entire PJM100 data:
+
+![summary](https://i.ibb.co/2vTsnsd/f00d0c3c-4f77-425e-9271-bd4583f889c1.jpg)
+
 ### 5. experiment_HV.py
 
 
