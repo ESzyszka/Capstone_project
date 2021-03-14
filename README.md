@@ -30,7 +30,8 @@ If one wishes to replicate the project the following pipeline and file list give
 
 ### 1. PJM_keyboard
 
-This folder contains the implementation of the PJM keyboard prototype. A video demo available here: 
+This folder contains the implementation of the PJM keyboard prototype. 
+A video demo available [here]() 
 
 ![Keyboard](https://i.ibb.co/hVxZGnR/Screenshot-2021-03-14-at-15-38-11.png) 
 ![KS](https://i.ibb.co/s2sBk8y/Screenshot-2021-03-14-at-19-38-32.png)
@@ -44,7 +45,7 @@ This folder contains the implementation of the PJM keyboard prototype. A video d
 
 The script generates new images given the PJM100 dataset. 
 The results are published [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi%3A10.7910%2FDVN%2FDG1GTX&version=DRAFT)
-Furthermore, a pdf including detailed information about training can be found in the https://www.notion.so/DCGAN-training-details-05b74e631b42460b81b18fb6a502bcf2
+Furthermore, a pdf including detailed information about DCGAN training results can be found in the https://www.notion.so/DCGAN-training-details-05b74e631b42460b81b18fb6a502bcf2
 
 ![DCGAN images](https://i.ibb.co/cDX12JX/Screenshot-2021-03-14-at-16-13-25.png)
 
@@ -70,5 +71,16 @@ The other file my_mode.h5 in the folder is an exported sample trained on a small
 
 ### 5. experiment_HV.py
 
+Series of experiments conducted aiming at implementing the type of movement detection such as:
+
+- Middleverticalmovement <\br>
+- Middlehorizontalmovement <\br>
+- Leftverticalmovement <\br>
+- Rightverticalmovement <\br>
+- Upperhorizontalmovement <\br>
+- Lowerhorizontalmovement <\br>
+- Stillness <\br>
 
 ### 6. key_frames.py
+
+This is a script which captures and crops automatically selected region on the screen. This script was used in the project for the purpose of data generation. 
