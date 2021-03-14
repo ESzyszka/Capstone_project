@@ -51,7 +51,7 @@ Furthermore, a pdf including detailed information about training can be found in
 
 
 
-#### 3. Training_VGG_16.ipynb
+### 3. Training_VGG_16.ipynb
 
 
 ### 4. Finger Detection and Tracking 
