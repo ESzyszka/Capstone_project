@@ -10,9 +10,9 @@ List of files in the Capstone_project repository
 1. PJM_Keyboard 
 2. DCGAN.ipynb
 3. Training_VGG_16.ipynb
-4. Finger Detection and Tracking
-   (a) FingerDetection.py 
-   (b) my_mode.h5
+4. Finger Detection and Tracking <br/>
+   (a) FingerDetection.py <br/>
+   (b) my_mode.h5 <br/>
 5. experiment_HV.py
 6. sd
 7. sd
