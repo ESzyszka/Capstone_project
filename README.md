@@ -8,8 +8,8 @@ List of files in the Capstone_project repository
 
 
 1. PJM_Keyboard 
-2. sds
-3. sd
+2. DCGAN.ipynb
+3. Training_VGG_16.ipynb
 4. sd
 5. sd
 6. sd
