@@ -17,7 +17,9 @@ List of files in the Capstone_project repository
 6. key_frames.py
 
 
+### Project pipeline
 
+If one wishes to replicate the project and make use of the pipeline the author suggests starting with answering the question whether you want to capture new data or not
 
 ### PJM_keyboard
 
