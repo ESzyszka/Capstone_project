@@ -11,7 +11,7 @@ If one wishes to replicate the project the following pipeline and file list give
 ![pipeline_github](https://i.ibb.co/7CCZDC3/pipeline-github.png) 
 
 
-List of files in the Capstone_project repository
+### File overview
 
 
 1. PJM_Keyboard 
