@@ -1,11 +1,11 @@
 # PJM recognition with Convolutional Neural Networks
 
 
-This folder contains implementation of a hand gesture recogniser for Polish Sign Language. Often refered to in literature as PJM. The project was submited as part of the undergraduate thesis at Minerva Schools at KGI in the departament of Computer Science and can be read as a full paper [here](https://www.overleaf.com/read/tvrgdjxgcfjw) or in the form of a blog post [here]().
+This folder contains implementation of a hand gesture recogniser for Polish Sign Language (Pol. Polski Język Migowy (PJM) ). The project was submited as part of the undergraduate thesis at Minerva Schools at KGI in the departament of Computer Science and can be read as a full paper [here](https://www.overleaf.com/read/tvrgdjxgcfjw) or in the form of a blog post [here]().
 
 
 ### Project pipeline
-If one wishes to replicate the project the following pipeline and file list gives the overview of the project. In case of any questions or interest in research collaborations reach out to via contact email: ewa.szyszka@minerva.kgi.edu
+If one wishes to replicate the project the following pipeline and file list gives the overview of the project. In case of any questions or interest in research collaborations reach out using this email: ewa.szyszka@minerva.kgi.edu
 
 
 ![pipeline_github](https://i.ibb.co/7CCZDC3/pipeline-github.png) 
