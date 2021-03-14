@@ -28,7 +28,7 @@ If one wishes to replicate the project the following pipeline and file list give
 
 
 
-### PJM_keyboard
+### 1. PJM_keyboard
 
 This folder contains the implementation of the PJM keyboard prototype. A video demo available here: 
 
@@ -40,7 +40,7 @@ This folder contains the implementation of the PJM keyboard prototype. A video d
 
 
 
-### DCGAN.ipynb
+### 2. DCGAN.ipynb
 
 The script generates new images given the PJM100 dataset. 
 The results are published [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi%3A10.7910%2FDVN%2FDG1GTX&version=DRAFT)
@@ -51,4 +51,12 @@ Furthermore, a pdf including detailed information about training can be found in
 
 
 
-#### 
+#### 3. Training_VGG_16.ipynb
+
+
+### 4. Finger Detection and Tracking 
+
+### 5. experiment_HV.py
+
+
+### 6. key_frames.py
