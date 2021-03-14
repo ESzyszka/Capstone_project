@@ -14,5 +14,9 @@ This folder contains the implementation of the PJM keyboard prototype. A video d
 
 ### DCGAN generator 
 
+![DCGAN images](https://i.ibb.co/cDX12JX/Screenshot-2021-03-14-at-16-13-25.png)
+
+
+
 
 #### 
