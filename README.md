@@ -1,3 +1,5 @@
+This folder contains implementation of a hand gesture recogniser for Polish Sign Language. Often refered to in literature as PJM. The project was submited as part of the undergraduate thesis at Minerva Schools at KGI in the departament of Computer Science and can be read as a full paper [here!](https://www.overleaf.com/read/tvrgdjxgcfjw)
+
 
 List of files in the project
 
