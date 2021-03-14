@@ -15,11 +15,6 @@ List of files in the Capstone_project repository
    (b) my_mode.h5 <br/>
 5. experiment_HV.py
 6. key_frames.py
-7. sd
-8. sd
-
-
-# Capstone_project
 
 
 
@@ -36,7 +31,11 @@ This folder contains the implementation of the PJM keyboard prototype. A video d
 
 
 
-### DCGAN generator 
+### DCGAN.ipynb
+
+The script generates new images given the PJM100 dataset. 
+The results are published [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi%3A10.7910%2FDVN%2FDG1GTX&version=DRAFT)
+Furthermore, a pdf including detailed information about training can be found in the https://www.notion.so/DCGAN-training-details-05b74e631b42460b81b18fb6a502bcf2
 
 ![DCGAN images](https://i.ibb.co/cDX12JX/Screenshot-2021-03-14-at-16-13-25.png)
 
