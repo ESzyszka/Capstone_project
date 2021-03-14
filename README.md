@@ -5,7 +5,7 @@ This folder contains implementation of a hand gesture recogniser for Polish Sign
 
 
 ### Project pipeline
-If one wishes to replicate the project the following pipeline and file list gives the overview of the project. In case of any questions or interest in research collaborations reach out using this email: ewa.szyszka@minerva.kgi.edu
+If one wishes to replicate the project the following pipeline and file list gives the overview of the building blocks of the project. In case of any questions or interest in research collaborations reach out using this email: ewa.szyszka@minerva.kgi.edu
 
 
 ![pipeline_github](https://i.ibb.co/7CCZDC3/pipeline-github.png) 
