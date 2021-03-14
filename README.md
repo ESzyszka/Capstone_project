@@ -73,13 +73,13 @@ The other file my_mode.h5 in the folder is an exported sample trained on a small
 
 Series of experiments conducted aiming at implementing the type of movement detection such as:
 
-- Middleverticalmovement <\br>
-- Middlehorizontalmovement <\br>
-- Leftverticalmovement <\br>
-- Rightverticalmovement <\br>
-- Upperhorizontalmovement <\br>
-- Lowerhorizontalmovement <\br>
-- Stillness <\br>
+- Middleverticalmovement 
+- Middlehorizontalmovement 
+- Leftverticalmovement 
+- Rightverticalmovement 
+- Upperhorizontalmovement 
+- Lowerhorizontalmovement 
+- Stillness 
 
 ### 6. key_frames.py
 
