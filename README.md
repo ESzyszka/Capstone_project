@@ -1,7 +1,7 @@
 # PJM recognition with Convolutional Neural Networks
 
 
-This folder contains implementation of a hand gesture recogniser for Polish Sign Language (Pol. Polski Język Migowy (PJM) ). The project was submited as part of the undergraduate thesis at Minerva Schools at KGI in the departament of Computer Science and can be read as a full paper [here](https://www.overleaf.com/read/tvrgdjxgcfjw) or in the form of a blog post [here]().
+This folder contains implementation of a hand gesture recogniser for Polish Sign Language (Pol. Polski Język Migowy (PJM) ). The project was submited as part of the undergraduate thesis at Minerva Schools at KGI in the departament of Computer Science and can be read as a full paper [here](https://www.overleaf.com/read/tvrgdjxgcfjw) or in the form of a blog post [here](https://reverent-kirch-795d34.netlify.app/  ).
 
 
 ### Project pipeline
@@ -88,4 +88,4 @@ This is a script which captures and crops automatically selected region on the s
 
 ### 7. blog
 
-This folder contains files for a blog website available here: https://reverent-kirch-795d34.netlify.app/  
+This folder contains files for a [blog post](https://reverent-kirch-795d34.netlify.app/)
