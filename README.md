@@ -22,6 +22,7 @@ If one wishes to replicate the project the following pipeline and file list give
    (b) my_mode.h5 <br/>
 5. experiment_HV.py
 6. key_frames.py
+7. blog
 
 
 
@@ -84,3 +85,7 @@ Series of experiments conducted aiming at implementing the type of movement dete
 ### 6. key_frames.py
 
 This is a script which captures and crops automatically selected region on the screen. This script was used in the project for the purpose of data generation. 
+
+### 7. blog
+
+This folder contains files for a blog website available here: https://reverent-kirch-795d34.netlify.app/  
