@@ -32,7 +32,7 @@ If one wishes to replicate the project the following pipeline and file list give
 ### 1. PJM_keyboard
 
 This folder contains the implementation of the PJM keyboard prototype. 
-A video demo available [here]() 
+A video demo available [here](https://www.youtube.com/watch?v=gmG6s8Jt-o0) 
 
 ![Keyboard](https://i.ibb.co/hVxZGnR/Screenshot-2021-03-14-at-15-38-11.png) 
 ![KS](https://i.ibb.co/s2sBk8y/Screenshot-2021-03-14-at-19-38-32.png)
