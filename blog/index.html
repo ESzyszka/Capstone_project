@@ -1,0 +1,800 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="https://distill.pub/template.v1.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+
+
+
+
+<script type="text/front-matter" >
+
+  title: "Sign Language Recognition"
+  description: "Thesis Project"
+  authors:
+  - Ewa Szyszka: http://colah.github.io
+  affiliations:
+  - Minerva Schools at KGI: http://g.co/brain
+
+</script>
+
+
+
+<!-- This is where the pretty alignment of picture and argument happens -->
+<head>
+<style>
+
+table.type01 {
+	border-collapse: collapse;
+	text-align: left;
+	line-height: 1.5;
+	margin : 20px 10px;
+}
+table.type01 th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border: 1px solid #ccc;
+}
+table.type01 td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border: 1px solid #ccc;
+}
+
+  .arguments-figure {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .arguments-figure > div {
+    max-width: 700px;
+    margin-bottom: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .arguments-figure > div:last-child {
+    margin-bottom: 0px;
+  }
+  .arguments-figure div img {
+    flex-basis: 120px;
+    max-width: 120px;
+    border-radius: 8px;
+    margin-right: 30px;
+    flex-shrink: 4;
+  }
+  .arguments-figure div div {
+    flex-basis: 550px;
+    flex-shrink: 1;
+  }
+  .arguments-figure div h4 {
+    margin-top: -4px;
+    margin-bottom: 8px;
+  }
+  .center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  }
+  .im_top{
+        position: relative;
+        top: 0;
+        left: 0;
+  }
+  .im_bottom{
+        position: absolute;
+        top: 0;
+        left: 0px;
+  }
+  .button_locator{
+        position: relative;
+        left: -210px;
+        top: 0;
+  }
+  .vertical-center{
+  margin: 0;
+  position: absolute;
+  top: 22%;
+  left: 34%;
+
+  }
+  .custom-button{
+  padding: 10xp;
+  color: white;
+  background-color: #009578;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+  .custom-button:hover{
+  background-color: #00b28f;
+  }
+  .custom-text{
+    margin-left 10px;
+
+  }
+
+
+</style>
+
+
+
+<!-- This is the stylish button magic: -->
+   <style id="svelte-1v7bmjo-style">#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:text}#math-wrapper.svelte-1v7bmjo.svelte-1v7bmjo{text-align:center}.highlightVariable.svelte-1v7bmjo>path.svelte-1v7bmjo{fill:var(--green)}.highlightNotation.svelte-1v7bmjo>path.svelte-1v7bmjo{fill:var(--blue)}.hidden.svelte-1v7bmjo.svelte-1v7bmjo{display:none}#button-wrapper.svelte-1v7bmjo.svelte-1v7bmjo{text-align:center;margin-top:10px}button.svelte-1v7bmjo.svelte-1v7bmjo{border:none;padding:0.75em 1.5em;text-align:center;text-decoration:none;font-size:1em;border:1px solid;margin-left:5px;margin-right:5px;border-radius:var(--border-radius);background-color:var(--gray-bg)}#notation-button.svelte-1v7bmjo.svelte-1v7bmjo{border-color:var(--blue);color:var(--blue)}#variable-button.svelte-1v7bmjo.svelte-1v7bmjo{border-color:var(--green);color:var(--green)}button.svelte-1v7bmjo.svelte-1v7bmjo:hover{cursor:pointer}@media(max-width: 768px){#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:screen !important}button.svelte-1v7bmjo.svelte-1v7bmjo{margin-top:0.5rem;margin-bottom:0.5rem;font-size:0.9em}}@media(max-width: 1000px){#wrapper.svelte-1v7bmjo.svelte-1v7bmjo{grid-column:page}}</style>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+ </head>
+
+<dt-article>
+  <h1>Sign Language Recognition</h1>
+  <h2>Building a Polish Sign Language (PJM) recognition tool.</h2>
+
+  <dt-byline style="margin-bottom: 0px"></dt-byline>
+
+
+  <div id="button-wrapper" class="byline" >
+    <!-- Place this tag where you want the button to render. -->
+    <a class="github-button" href="https://github.com/ntkme/github-buttons/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-forked" data-size="large"  aria-label="Fork ntkme/github-buttons on GitHub">Fork</a>
+    <a class="github-button" href="https://www.overleaf.com/read/tvrgdjxgcfjw" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-repo-template" data-size="large" aria-label="Fork ntkme/github-buttons on GitHub">Paper</a>
+  </div>
+
+
+
+
+
+  <h2>Project motivation</h2>
+  <figure class="arguments-figure">
+
+  <div>
+            <img src="https://images.unsplash.com/photo-1584558611757-1ba590b2101e?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 1: Diversity protection <dt-cite key="image1"></dt-cite></h4>
+            <p>Around the world, there are over 135 sign languages spoken, most of them being low-resource languages.</p>
+            </div>
+  </div>
+  <div>
+            <img src="https://images.unsplash.com/photo-1501472312651-726afe119ff1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 2: Personal <dt-cite key="image2"></dt-cite></h4>
+            <p>Explore previously unknown linguistic territory and unknown part of my own cultural heritage.</p>
+            </div>
+  </div>
+  <div>
+            <img src="https://images.unsplash.com/photo-1525340941843-5ab5dd974e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80" style="filter: brightness(97%);">
+            <div>
+              <h4>Motivation 3: Academic <dt-cite key="image3"></dt-cite></h4>
+            <p>Establish a solid theoretical basis for Polish Sign Language recognition</p>
+            </div>
+  </div>
+
+</figure>
+
+
+<h2>Building blocks of sign languages</h2>
+
+<p>Sign Languages, unlike spoken languages, consist of different building blocks. The table below gives a brief overview of the most important similarities and differences between the Polish Sign Language (PJM) and spoken polish language. For simplicity, the spoken language is marked with the icon: 👄 and PJM with ✋.   </p>
+<div>
+
+  <table class="type01">
+	<tr>
+		<th scope="row">Similarities</th>
+		<th>Differences</th>
+	</tr>
+	<tr>
+		<td scope="row">✋: dactylology (finger alphabet) <br>👄: alphabet  </td>
+		<td>✋: non-linear syntax consisting of the manual (gestures) and non-manual (facial mimics, dynamics of gestures)<br>👄:  linear syntax  </td>
+	</tr>
+	<tr>
+		<td scope="row">✋: diacritic letters (ę,ą,ć,ż ...) present <br>👄: diacritic letters (ę,ą,ć,ż ...) present </td>
+		<td>✋: No phonemes exsist <br> 👄: Phonemes are building blocks of words</td>
+	</tr>
+
+  <tr>
+		<td scope="row">✋: diagraphs (dz,cz,sz,...) present <br>👄: diagraphs (dz,cz,sz,...) present </td>
+		<td>✋: Because of multiple channels of communication  (hands, face ...) simultaneous sentences are possible.
+    <br> 👄: Not possible to convey more than one sentence at a time </td>
+	</tr>
+
+  <tr>
+    <td scope="row"> <br> </td>
+    <td>✋: No conjugation and declination
+    <br> 👄: 7 declination cases present, 3 various conjugations based on present tense can be derived  </td>
+  </tr>
+</table>
+</div>
+<br>
+<div>
+  The diacritic alphabet of PJM is the main focus of this project. For a brief introduction to the fingerspelling alphabet look here:
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/0KqQZyrPYQg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+
+
+<h2>Computer Vision background </h2>
+
+  <p>To understand how the problem of automatic PJM recognition can be broken down, we need a background in computer vision. In particular, the relevant concepts are <b>perceptron</b>, <b>backpropagation</b>,
+  <b>loss function optimization</b>, <b>convolutional neural networks</b> and <b>generative adversarial neural networks</b>. A detailed description of those concepts can be found in the thesis paper. This blog section
+aims to clarify the concepts via interactive formulas and more surface-level intuition. </p>
+
+
+
+
+
+
+<h4>Perceptron </h4>
+<p>
+Perceptron  is  a  simple  supervised  learning binary classification algorithm and a building block of deep neural networks. What this means is that using perceptron we can
+determine whether something belongs to category A or category B. The linear decision boundary is a line between those two groups that we draw for a given training dataset.
+A perceptron consists of input information, weights that give away the information about the relative importance of each input, bias which indicates whether the neuron is activated or not,
+a non-linear activation function which introduces a threshold of whether the input can be categorized as category A or B. The limitation of this simple perceptron is that it can only
+distinguish between two categories A or B. To overcome this we can stack multiple perceptrons and add the so-called hidden layers. The multilayer perceptron simply takes the outputs of
+one layer and "puts it again" into the network as input. Such recycling of layer outputs allows for the categorization of more than two categories and can manage noisy inputs. This is how perceptron can be
+described mathematically:
+</p>
+
+
+
+<div style="position: relative; left: 0; top: 0;">
+   <img id="math_1" src="https://www.linkpicture.com/q/perceptron.png"  width="450" height="180" class="im_bottom">
+   <img id="math_2" src="https://www.linkpicture.com/q/perceptron_anotated.png" width="450" height="180" class="im_top">
+</div>
+<!-- This is the JavaScript for changing the opacity -->
+<script>
+function opacityDimmer() {
+  document.getElementById("math_2").style.opacity = 0.0;
+}
+function opacityBringer(){
+  document.getElementById("math_2").style.opacity = 1.0;
+}
+</script>
+
+<div id="button-wrapper"  class="svelte-1v7bmjo button_locator">
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityDimmer()" id="notation-button" class="svelte-1v7bmjo">-</button>
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityBringer()" id="variable-button" class="svelte-1v7bmjo">+</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+<h4>Loss function </h4>
+
+<p>
+Training a neural network can be formulated as an optimization problem, where the main task is to find the mapping function between the input data X and the prediction Y and minimize the loss function.
+In more plain language this means that for a given dataset we need to make sure that the multilayer perceptron minimizes the number of times an incorrect category was assigned. Given the input belongs to
+category A, we want to minimize the number of incorrect guesses. There are different kinds of mistakes that we can make:
+</p>
+
+<div>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/1200px-Precisionrecall.svg.png" width="300" height="575">
+<figcaption>Fig 1: Various error types. <dt-cite key="figure1"></dt-cite>
+</div>
+
+<p>
+Mean square error (MSE) is among others the most popular loss function. It is an average difference between the actual value and the desired value squared.
+By minimizing the loss function we improve the number of correct guesses and we can say that the model is more accurate. This is how MSE is formulated mathematically:
+</p>
+
+
+<div style="position: relative; left: 0; top: 0;">
+   <img id="math_4" src="https://www.linkpicture.com/q/MSE.png" width="470" height="175" class="im_top">
+   <img id="math_3" src="https://www.linkpicture.com/q/MSE_annotated.png"  width="470" height="175" class="im_bottom">
+<!-- https://www.linkpicture.com/q/loss_function.png-->
+
+
+
+</div>
+<div>
+
+<!-- This is the JavaScript for changing the opacity -->
+<script>
+function opacityDimmerr() {
+  document.getElementById("math_3").style.opacity = 0.0;
+}
+
+function opacityBringerr(){
+  document.getElementById("math_3").style.opacity = 1.0;
+}
+</script>
+
+
+<div id="button-wrapperr"  class="svelte-1v7bmjo button_locator">
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityDimmerr()" id="notation-buttonn" class="svelte-1v7bmjo">-</button>
+  <button type="button" style="position: relative; left: 0; top: 0;" onclick="opacityBringerr()" id="variable-buttonn" class="svelte-1v7bmjo">+</button>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<h4>Backpropagation </h4>
+<p>In short, backpropagation is a way of adjusting weights and biases of the network in a way that would minimizes the MSE loss function.
+The gradient of the loss function with respect to the weights is calculated and through the process of backpropagation we adjust weights and biases in
+ a way that attempts to miinimize the loss function. Detailed example can be found in the thesis paper. </p>
+
+
+
+
+
+
+
+
+
+
+<h4>Convolutional neural networks</h4>
+
+<p>There are many CNN Architectures that researchers came up with such as <a href="https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf">AlexNet</a>, <a href="https://arxiv.org/pdf/1512.03385.pdf">ResNet</a> or <a href="https://arxiv.org/pdf/1409.1556.pdf">VGG-16</a>. The VGG-16 is an architecture that is easy to understand and illustrates well the main building blocks of a CNN network. The Convolutional Neural Networks VGG-16 architecture consists of two main building blocks. The task of the first block colored in yellow is to <b>extract the high level features</b> from the images and the second block colored in blue aims at <b>classifying</b> which of the given labels can be attributed to a specific image.</p>
+<div><a href="https://imgbb.com/"><img src="https://i.ibb.co/C2z0jWM/1.jpg" alt="1" border="0"></a></div>
+
+<br>
+<br>
+<h4>Details of VGG-16 CNN architecture</h4>
+<div>
+
+The first step is to feed input image into the Convolutional Network, which is an RGB email 224 pixels by 224 pixels.
+<br>
+<br>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/Qvk53WR/2.jpg" alt="2" border="0"></a>
+<br>
+<br>
+
+Next, there are two Convolutional layers, which perform a convolution operation on the input image. The convolution operation is a <b>dot product</b> between the input image and <b>the kernel</b> and produces a <b>feature space</b> as a result.
+The kernel is a 3 x 3 matrix, which by "sliding" through the input image detects features of the input such as horizontal or vertical edges. The kernel is said to have a <b>0-padding</b>, which is a padding added to the input to ensure that
+the output after convolution operation has the same dimentions as the input. After each Convolution a <b>ReLU activation function</b> is applied, which is placed in order to introduce non-linearity to the model.
+ Without ReLU no matter how many hidden layers we would have added the model would behave like a single layer perceptron, this is why non-linearity is important.
+ <br>
+ <br>
+
+
+<img src="https://media.giphy.com/media/i4NjAwytgIRDW/giphy.gif">
+<figcaption>Fig 2: Convolution operation  <dt-cite key="figure2"></dt-cite></figcaption>
+
+
+
+
+<br>
+<br>
+
+The next step is <b>max pooling</b>, with a window size 2 x 2, which means that from 2 x 2 region we chose the highest value and we re-write it to produce new layer of smaller dimentions
+112 x 112. The convolution and max pooling operations are repeated until data is reduced to 7 x 7 size.
+<br>
+<br>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/9yCKMFB/4.jpg" alt="4" border="0"></a>
+
+<br>
+<br>
+
+<b>Flattening</b> of the data is done in preparation of feeding the data into  <b>Fully Connected Layers</b> which are used next for classification.
+From this step on we entered the classification part of the VGG-16 model and we are no longer extracting the features from the input image.
+<br>
+<br>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/ypT7bnP/13.jpg" alt="13" border="0"></a>
+<br>
+<br>
+
+After flattening we optain three Layers, that are known as <b>Fully Connected Layers</b>, as each element in the network is connected to each element in the next layer.
+Using <b>backpropagation</b> the model adjusts the weights. The output comes out in the form of logits. <b>Logits</b> are unnormalized predictions of the model.
+<br>
+<br>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/YR7Db4h/14.jpg" alt="14" border="0"></a>
+
+<br>
+<br>
+
+In the last step the logits values are normalized and with help of the <b>softmax function</b> they are adjusted and turned into probabilities.
+The output of the model are the probabilities for each label.
+
+<br>
+<br>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/GFKWJcJ/16.jpg" alt="16" border="0"></a>
+<br>
+<br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h4>Generative adversarial neiral networks</h4>
+<p>
+Generative Adversarial Networks are models who’s architecture consists of two competing neural networks - the generator and the discriminator.
+The goal of the generator is to create new data points which resemble the real data points and the goal of the discriminator is to make predictions about which data pointsare real.<br>
+</p>
+
+
+
+<br>
+<div>
+<img src="https://wiki.pathmind.com/images/wiki/GANs.png" height="80%" width="80%"><br><br>
+<figcaption>Fig 3: GANs architecture  <dt-cite key="figure3"></dt-cite></figcaption>
+</div>
+
+
+
+
+
+
+
+<h2>Methodology</h2>
+
+<p>The project is divided into four main stages. You can click on each if you want to go directly to the section and learn what it entails. However, it is recommended to look at the project in chronological order.  </p>
+
+
+
+    <p>
+          <a href="#Link1">1. Data collection and generation</a> <br>
+          <a href="#Link2">2. Building of the detection software (sign2text)</a> <br>
+          <a href="#Link3">3. Building generation softwrae (text2sign)</a><br>
+          <a href="#Link4">4. Next steps</a>.
+        </p>
+
+<br>
+
+<h4 id="Link1">Data collection and generation</h4>
+
+<div>
+To address the lack of presence of datasets for Polish Sign Language two datasets were proposed: <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/K142HP"> PJM100</a>  and <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/DG1GTX">Augmented PJM with DCGANS</a>
+To capture the data the following script was used: </div>
+
+
+
+</div>>
+<dt-code block language="python">
+  #______ IMPORTS ________
+  import cv2
+  from pathlib import Path
+  import os.path
+  from os import path
+
+  #______ OPEN A VIDEO FRAME ________
+  cam = cv2.VideoCapture(0)
+  cv2.namedWindow("test")
+
+  img_counter = 0
+
+  #________ CONTINUE DISPLAYING FRAME UNTIL DISRUPTED ________
+  while True:
+      ret, frame = cam.read()
+
+      #________ RECTANGLE REGION FOR DETECTION ________
+      start_point, end_point,color,thickness = (5, 5),(220, 220),(255, 0, 0), 2
+      cv2.rectangle(frame, (100,100),(600,600),(255,0,0), 2)
+      cv2.imshow("test", frame)
+
+      if not ret:
+          break
+      k = cv2.waitKey(1)
+
+      # ________ WHEN ESC PRESSED: IMAGE IS SAVED TO THE FOLDER ________
+      if k%256 == 27:
+          break
+
+      # ________ WHEN SPACE PRESSED: IMAGE IS SAVED TO THE FOLDER ________
+      elif k%256 == 32:
+          img_box = "/Users/ewa_anna_szyszka/Desktop/Code/ImageRecognition/datacapturebox/A/opencv_box__{}.png".format(img_counter)
+          r = (102, 102, 499, 499)
+          imCrop = frame[int(r[1]):int(r[1]+r[3]), int(r[0]):int(r[0]+r[2])]
+          cv2.imwrite(img_box, imCrop)
+          img_counter += 1
+
+  cam.release()
+
+  cv2.destroyAllWindows()
+</dt-code>
+
+
+<br>
+<div>This is how the captured images looked like:</div>
+
+<!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+<p>
+<image width="150" height="150"  src="https://i.ibb.co/QfSwTyf/capture.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="https://i.ibb.co/NtL0Wzs/capture2.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="https://i.ibb.co/SvLZZWR/capture3.png" x="620" y="0" opacity="0"></image>
+<image width="150" height="150"  src="https://i.ibb.co/4WZdPdm/capture4.png" x="620" y="0" opacity="0"></image>
+</p>
+
+
+
+<p>
+This is how the DCGAN generated images looked like:
+<!--❗❗❗❗❗❗❗change code here ❗❗❗❗❗❗❗❗❗❗❗-->
+<image width="600" height="300" src="https://www.linkpicture.com/q/img1.png" x="620" y="0" opacity="0"></image>
+</p>
+
+
+
+<br>
+<!--
+
+  <figure class="l-body">
+                      <div id="figure7_div">
+                        <svg width="100%" height="100%" viewBox="0 0 1020 470" style="min-width: 510px;">
+                          <g id="image_group" width="960" height="300" transform="translate(30, 30)">
+
+                            <text id="display_image_title" x="150" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: X</text>
+                            <text id="ig_weights_title" x="480" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: Y</text>
+                            <text id="eg_weights_title" x="810" y="-10" style="text-anchor: middle; font-weight: 700; font-size: 18px; font-family: sans-serif;">Number of epochs: Z</text>
+
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img1.png" id="display_image" x="0" y="0"></image>
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img2.png" id="ig_weights" x="330" y="0"></image>
+                            <image width="300" height="300" xlink:href="/Users/ewa_anna_szyszka/Desktop/blog/img3.png" id="eg_weights" x="660" y="0"></image>
+                          </g>
+                        </svg>
+                      </div>
+                       <script src="figure7.js"></script>
+
+                  </figure> -->
+
+
+
+
+
+<h4 id="Link2">Building of the detection software</h4>
+
+<p>The sign2text detection software consists of captured and trained data described above. The overview can be also seen in the dataset and training pipeline below.</p>
+
+
+<p>
+<image width="1100" height="300" src="https://www.linkpicture.com/q/methodology_1.png" x="620" y="0" opacity="0"></image>
+</p>
+
+<p>The main contributions of the sign2text software were creating a pipeline that computes the centroids for a hand region, samples the skin colour and determine whether the gestures
+are dynamic or still. The entire codebase can be accessed on <a href="https://github.com/ESzyszka/Capstone_project">GitHub</a>, however below the relevant code snippets are highlighted for ease of
+replication of the project.</p>
+
+<p>This is part of the code which is based on the <a href="https://github.com/amarlearning/Finger-Detection-and-Tracking">A. P. Pandey tutorial</a> and it creates squares sampling the skin colour and next crops the hand region from the screen. This is the preview:</p>
+
+<p>
+<image src="https://www.linkpicture.com/q/Screenshot-2021-03-16-at-01.54.14.png" width="470" height="275"  opacity="0"></image>
+</p>
+
+<dt-code block language="python">
+
+  #This is where the rectangles capturing the color are made
+  def draw_rect(frame):
+      rows, cols, _ = frame.shape
+      global total_rectangle, hand_rect_one_x, hand_rect_one_y, hand_rect_two_x, hand_rect_two_y
+
+      hand_rect_one_x = np.array(
+          [6 * rows / 20, 6 * rows / 20, 6 * rows / 20, 9 * rows / 20, 9 * rows / 20, 9 * rows / 20, 12 * rows / 20,
+           12 * rows / 20, 12 * rows / 20], dtype=np.uint32)
+
+      hand_rect_one_y = np.array(
+          [9 * cols / 20, 10 * cols / 20, 11 * cols / 20, 9 * cols / 20, 10 * cols / 20, 11 * cols / 20, 9 * cols / 20,
+           10 * cols / 20, 11 * cols / 20], dtype=np.uint32)
+
+      hand_rect_two_x = hand_rect_one_x + 10
+      hand_rect_two_y = hand_rect_one_y + 10
+
+      for i in range(total_rectangle):
+          cv2.rectangle(frame, (hand_rect_one_y[i], hand_rect_one_x[i]),
+                        (hand_rect_two_y[i], hand_rect_two_x[i]),
+                        (0, 255, 0), 1)
+
+      return frame
+
+  #histogram for the skin color
+  def hand_histogram(frame):
+      global hand_rect_one_x, hand_rect_one_y
+
+      hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+      roi = np.zeros([90, 10, 3], dtype=hsv_frame.dtype)
+
+      for i in range(total_rectangle):
+          roi[i * 10: i * 10 + 10, 0: 10] = hsv_frame[hand_rect_one_x[i]:hand_rect_one_x[i] + 10,
+                                            hand_rect_one_y[i]:hand_rect_one_y[i] + 10]
+
+      hand_hist = cv2.calcHist([roi], [0, 1], None, [180, 256], [0, 180, 0, 256])
+      return cv2.normalize(hand_hist, hand_hist, 0, 255, cv2.NORM_MINMAX)
+
+  #cuts only the hand out of the image
+  def hist_masking(frame, hist):
+      hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+      dst = cv2.calcBackProject([hsv], [0, 1], hist, [0, 180, 0, 256], 1)
+
+      disc = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (31, 31))
+      cv2.filter2D(dst, -1, disc, dst)
+
+      ret, thresh = cv2.threshold(dst, 150, 255, cv2.THRESH_BINARY)
+
+      # thresh = cv2.dilate(thresh, None, iterations=5)
+
+      thresh = cv2.merge((thresh, thresh, thresh))
+
+      return cv2.bitwise_and(frame, thresh)
+</dt-code>
+
+<p>The excerpt of the code focusing on determining whether a gesture is dynamic or still based on threshold of how much time did the detected hand spent in specific region of the
+screen:</p>
+<dt-code block language="python">
+  ################## Checking to which HORIZONTAL tiers did the majority of the points fell into ##################
+
+  for i in range(len(list_of_centroids)):
+
+      #HORIZONTAL DETECTORS optimized for 100 screen size
+
+      if list_of_centroids[i][0] in range(0,1222) and list_of_centroids[i][1] in range(0,250):
+          threshold_upper+= 1
+
+      if list_of_centroids[i][0] in range(0,1222) and list_of_centroids[i][1] in range(250,550):
+          threshold_middle+= 1
+
+      if list_of_centroids[i][0] in range(0,1222) and list_of_centroids[i][1] in range(550,720):
+          threshold_lower+= 1
+
+      #VERTICAL DETECTORS
+
+      if list_of_centroids[i][0] in range(0,400) and list_of_centroids[i][1] in range(0,716):
+          threshold_left+= 1
+
+      if list_of_centroids[i][0] in range(400,800) and list_of_centroids[i][1] in range(0,716):
+          threshold_middle_vertical+= 1
+
+      if list_of_centroids[i][0] in range(800,1280) and list_of_centroids[i][1] in range(0,716):
+          threshold_right+= 1
+
+      areas = [(threshold_upper/len(list_of_centroids)), (threshold_middle/len(list_of_centroids)), (threshold_lower/len(list_of_centroids)), (threshold_left/len(list_of_centroids)), (threshold_middle_vertical/len(list_of_centroids)), (threshold_right/len(list_of_centroids)) ]
+
+
+      #STILLNESS DETECTOR IF IN THE MIDDLE BOX AREA - not in the intersection
+      if list_of_centroids[i][0] in range(400,800) and list_of_centroids[i][1] in range(250,550) and all(i <= 0.75 for i in areas):
+          threshold_still+=1
+
+  #70% threshold is set up
+  cap = 0.7
+
+  Upper_horizontal_movement = (threshold_upper/len(list_of_centroids))
+  Middle_horizontal_movement = (threshold_middle/len(list_of_centroids))
+  Lower_horizontal_movement = (threshold_lower/len(list_of_centroids))
+  Left_vertical_movement = (threshold_left/len(list_of_centroids))
+  Middle_vertical_movement = (threshold_middle_vertical/len(list_of_centroids))
+  Right_vertical_mevement = (threshold_right/len(list_of_centroids))
+</dt-code>
+
+
+<p>
+This is a preview of the software:</p>
+<div style="position: relative; left: 0; top: 0;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EoMs8AXZMWM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<div style="position: relative; left: 0; top: 0;">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eHG4sQobizM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+
+
+
+<h4 id="Link3">Building generation softwrae (text2sign)</h4>
+
+<p>
+The proposed inverse text2sign framework includes a PJM-based iOS keyboard. Full open-source code available on <a href="https://github.com/ESzyszka/Capstone_project/tree/main/PJM_keyboard">GitHub</a>
+</p>
+<p>
+<image width="500" height="300"  src="https://camo.githubusercontent.com/5040dbd221535b674f6ad1d8f0d16cb37ed19ef8b44578d814dd9fa50f2bc86f/68747470733a2f2f692e6962622e636f2f6856785a476e522f53637265656e73686f742d323032312d30332d31342d61742d31352d33382d31312e706e67" x="620" y="0" opacity="0"></image> <br>
+<image width="480" height="370"  src="https://camo.githubusercontent.com/6169a01c68e19853ae7d8d07bdc2f1aa9ff597bc8506e3556cd5b3fee5ef07c0/68747470733a2f2f692e6962622e636f2f315a59516e6a6b2f53637265656e73686f742d323032312d30332d31342d61742d31362d30342d32372e706e67" x="620" y="0" opacity="0"></image>
+
+</p>
+
+<h4 id="Link4">Next steps</h4>
+<p>
+If you made it until here in the tutorial do not hesitate to reach out to the author via email: ewa.szyszka@minerva.kgi.edu.
+In short, the next steps for the project would be: <br>
+<br>
+(1) Train a more accurate model <br>
+(2) Integrate the recognition software into iOS <br>
+(3) Test German Sign Language fit for transfer learning <br>
+(4) Train different CNN and non-CNN architectures <br>
+</p>
+
+
+
+
+<script type="text/javascript">
+  const realFileBtn = document.getElementById("real-file");
+  const customBtn = document.getElementById("custom-button");
+  const customTxt = document.getElementById("custom-text");
+
+</script>
+
+
+
+
+
+
+<div id="observablehq-717ef042"></div>
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks.js?v=3";
+const inspect = Inspector.into("#observablehq-717ef042");
+(new Runtime).module(define, name => name === "graphic" ? inspect() : undefined);
+</script>
+</dt-article>
+
+
+<dt-appendix>
+</dt-appendix>
+
+<script type="text/bibliography">
+  @article{image1,
+    title={Hand gesture},
+    author={Ian Dooley},
+    year={2017},
+    url={https://images.unsplash.com/photo-1584558611757-1ba590b2101e?ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80}
+  };
+  @article{image2,
+    title={Hand reflecting light},
+    author={Ian Dooley},
+    year={2017},
+    url={https://unsplash.com/@sadswim?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText}
+    };
+  @article{image3,
+    title={Hand image},
+    author={Ian Dooley},
+    year={2017},
+    url={https://images.unsplash.com/photo-1525340941843-5ab5dd974e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80}
+    };
+  @article{figure1,
+    title={Precision and recall},
+    author={Walber},
+    year={2014},
+    url={https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/1200px-Precisionrecall.svg.png}
+    };
+  @article{figure2,
+    title={An Intuitive Explanation of Convolutional Neural Networks},
+    author={Ujjwal Karn},
+    year={2016},
+    url={https://ujwlkarn.files.wordpress.com/2016/07/convolution_schematic.gif?w=268&h=196}
+    };
+    @article{figure3,
+      title={A Beginner's Guide to Generative Adversarial Networks (GANs)},
+      author={Chris Nicholson},
+      year={2017},
+      url={https://wiki.pathmind.com/images/wiki/GANs.png}
+      };
+
+
+
+</script>
